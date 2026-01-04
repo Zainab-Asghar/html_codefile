@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Time Visualizer</title>
+<style>
+  :root {
+    --bg-color: #ffe6b3;
+    --text-color: #333;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background 1s, color 1s;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  /* Time-based classes */
+  .morning {
+    --bg-color: #fff7e6;
+    --text-color: #333;
+  }
+
+  .afternoon {
+    --bg-color: #ffe6b3;
+    --text-color: #333;
+  }
+
+  .evening {
+    --bg-color: #ffcc99;
+    --text-color: #222;
+  }
+
+  .night {
+    --bg-color: #2c3e50;
+    --text-color: #ecf0f1;
+  }
+</style>
+</head>
+<body>
+  <div>
+    <h1 id="greeting">Hello!</h1>
+    <p id="time">00:00</p>
+  </div>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const greeting = document.getElementById('greeting');
+    const time = document.getElementById('time');
+    
+    time.textContent = `${hours}:${minutes}`;
+
+    document.body.classList.remove('morning','afternoon','evening','night');
+
+    if (hours >= 6 && hours < 12) {
+      document.body.classList.add('morning');
+      greeting.textContent = 'Good Morning!';
+    } else if (hours >= 12 && hours < 17) {
+      document.body.classList.add('afternoon');
+      greeting.textContent = 'Good Afternoon!';
+    } else if (hours >= 17 && hours < 20) {
+      document.body.classList.add('evening');
+      greeting.textContent = 'Good Evening!';
+    } else {
+      document.body.classList.add('night');
+      greeting.textContent = 'Good Night!';
+    }
+  }
+
+  updateTime();
+  setInterval(updateTime, 60000);
+</script>
+</body>
+</html>
